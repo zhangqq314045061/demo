@@ -2,10 +2,52 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>demo</title>
 </head>
-<body>
-head
-	
+<script src="js/jquery-1.11.3.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<body class="link-lists">
+	<div class="link wrap w1400">
+		<div class="link-list ft16">
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var locations = location.origin;
+		  $.ajax({
+		  	url:locations +"/demo/json/link.json",
+		  	data:0,
+		  	type: "post",
+			dataType:"json",
+		  	async:false,
+		  	success:function(json){
+		  		var html="";
+		  		var htmls = "";
+		  		var id = 0;
+		  		var i= 0;
+				for( var key in json.links ){
+						var jskey = json.links[key];
+					    for(var j in jskey){
+							var subhead =jskey[j].subhead;
+							var id =jskey[j].id;
+							var link =jskey[j].link;
+							htmls +='<a class="item" style="color:#999" target="_blank" href="'+link+'">'+subhead+'</a>';
+					    }
+
+						html += '<div class="items" data-id="'+id+'">'+
+							'<div class="items-top" style="color:#000">'+key+'</div>'+
+							'<div class="items-bots ft14">'+htmls+
+							'</div>'+
+						'</div>';
+						htmls="";
+						$(".link-list .items").find(".items-bots").html(htmls);
+				}
+						$(".link-list").append(html);
+		  	}
+		  });
+		});
+
+	</script>
 </body>
 </html>
